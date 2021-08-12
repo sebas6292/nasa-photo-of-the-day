@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function Copywrite(props) {
-    return <h1>{props.copywrite}</h1>;
+    return <p>{props.copywrite}</p>;
 }

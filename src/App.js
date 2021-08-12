@@ -2,52 +2,51 @@ import React, {useEffect, useState} from "react";
 import "./App.css";
 import axios from 'axios'
 
-import { BASE_URL, API_KEY } from './Components/URL_API'
 import Title from './Components/Title'
-import Copyright from './Components/Copyrightjs'
+import Copyright from './Components/Copyright'
 import Date from './Components/Date'
 import Explanation from './Components/Explanation'
-import Image from './Components/Image'
-// import { set } from "lodash";
 
- export default function App() {
-    const [title, setTitle] = useState('')
-    const [copyright, setCopyright] = useState('')
-    const [date, setDate] = useState('')
-    const [explanation, setExplanation] = useState('')
-    const [image, setImage] = useState('')
+
+
+ function App() {
+   const [nasaData, setNasaData] = useState({})
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/apod?api_key=${API_KEY}`)
+    axios.get(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`)
       .then(res => {
-        console.log(res.data)
-        setTitle(res.data.title)
-        setCopyright(res.data.copyright)
-        setDate(res.data.date)
-        setExplanation(res.data.explanation)
-        setImage(res.data.image)
+        console.log(res);
+        setNasaData(res.data)
       })
-      .catch((err) => {
-        console.error(error)
-      })
+      .catch((err) =>  console.error(err));
   }, [])
 
+    let image = document.createElement('img');
+    image.src = nasaData.url;
 
     return (
     <div className='App'>
 
-        <Title className='title' title={title} />
-
-        <Image className='image' image={image}/>
-
-        <Date className='date' date={date} /> 
-
-        <Explanation className='explanation' explanation={explanation} />
-        
-        <Copyright className='copyright' copyright={copyright}/>
+      <div> 
+        <Title title={nasaData.title} />
+      </div>
       
+      <div> 
+        <img src={nasaData.url} />
+      </div>
+
+      <div> 
+        <Date date={nasaData.date} />
+      </div>
+
+      <div> 
+        <Explanation explanation={nasaData.explanation} />
+      </div>
+      <div>
+        <Copyright copyright={nasaData.copyright} /> 
+       </div>
     </div>
     );
   }
 
-
+export default App;
