@@ -23,22 +23,19 @@ import Explanation from './Components/Explanation'
 
     let image = document.createElement('img');
     image.src = nasaData.url;
+    image.alt = nasaData.alt;
 
     return (
     <div className='App'>
-
       <div> 
         <Title title={nasaData.title} />
       </div>
-      
       <div> 
-        <img src={nasaData.url} />
+        <img src={nasaData.url} alt = {nasaData.alt}/>
       </div>
-
       <div> 
         <Date date={nasaData.date} />
       </div>
-
       <div> 
         <Explanation explanation={nasaData.explanation} />
       </div>
